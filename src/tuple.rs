@@ -1,5 +1,5 @@
-use std::fmt::Formatter;
 use crate::prelude::*;
+use std::fmt::Formatter;
 use std::ops::IndexMut;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -10,7 +10,11 @@ pub struct Tuple {
 impl std::fmt::Display for Tuple {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         #[derive(PartialEq)]
-        enum TupleType { Point, Vector, Neither }
+        enum TupleType {
+            Point,
+            Vector,
+            Neither,
+        }
 
         let mut tuple_type = TupleType::Neither;
         if self.is_point() {
@@ -19,13 +23,21 @@ impl std::fmt::Display for Tuple {
             tuple_type = TupleType::Vector;
         }
 
-        write!(f, "{}(", match tuple_type {
-            TupleType::Point => "Point",
-            TupleType::Vector => "Vector",
-            TupleType::Neither => "Tuple",
-        })?;
+        write!(
+            f,
+            "{}(",
+            match tuple_type {
+                TupleType::Point => "Point",
+                TupleType::Vector => "Vector",
+                TupleType::Neither => "Tuple",
+            }
+        )?;
 
-        write!(f, "{}, {}, {}", self.elements[0], self.elements[1], self.elements[2])?;
+        write!(
+            f,
+            "{}, {}, {}",
+            self.elements[0], self.elements[1], self.elements[2]
+        )?;
 
         if tuple_type == TupleType::Neither {
             write!(f, ", {}", self.elements[3])?;
@@ -177,19 +189,19 @@ impl Tuple {
     }
 
     pub fn get_mut_underlying_x(&mut self) -> &mut f64 {
-        &mut (self.get_mut_x()).0
+        &mut self.get_mut_x().0
     }
 
     pub fn get_mut_underlying_y(&mut self) -> &mut f64 {
-        &mut (self.get_mut_y()).0
+        &mut self.get_mut_y().0
     }
 
     pub fn get_mut_underlying_z(&mut self) -> &mut f64 {
-        &mut (self.get_mut_z()).0
+        &mut self.get_mut_z().0
     }
 
     pub fn get_mut_underlying_w(&mut self) -> &mut f64 {
-        &mut (self.get_mut_w()).0
+        &mut self.get_mut_w().0
     }
 
     /// Calculates magnitude of Tuple

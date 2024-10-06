@@ -153,7 +153,7 @@ impl std::ops::Div for Float {
 }
 
 impl std::iter::Sum<Float> for Float {
-    fn sum<I: Iterator<Item=Float>>(iter: I) -> Self {
+    fn sum<I: Iterator<Item = Float>>(iter: I) -> Self {
         Self(iter.map(|f| f.0).sum())
     }
 }
